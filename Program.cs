@@ -1,6 +1,7 @@
 
 using _4VGymEF.Data;
 using _4VGymEF.Models;
+using _4VGymEF.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +48,11 @@ builder.Services.AddOpenApi();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); // DefaultConnection: Es el nombre de la cadena de conexión definida en el archivo appsettings.json
 // Registrar el DbContext
 builder.Services.AddDbContext<GymDbContext>(options => options.UseSqlServer(connectionString));
+
+// Registro de los repositorios con ciclo de vida Scoped (una instancia por petición HTTP)
+builder.Services.AddScoped<ActivityTypeRepository>();
+builder.Services.AddScoped<InstructorRepository>();
+builder.Services.AddScoped<ActivityRepository>();
 
 
 // Contruir la aplicacion
