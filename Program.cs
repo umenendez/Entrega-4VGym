@@ -8,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Añadir los controladores
 builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Evita el bucle infinito al serializar entidades con relaciones circulares
+        options.JsonSerializerOptions.ReferenceHandler =
+            System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    })
     .ConfigureApiBehaviorOptions(options =>
     {
         options.InvalidModelStateResponseFactory = context =>
