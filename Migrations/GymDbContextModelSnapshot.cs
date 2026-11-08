@@ -24,15 +24,15 @@ namespace _4VGymEF.Migrations
 
             modelBuilder.Entity("ActivityInstructor", b =>
                 {
-                    b.Property<int>("ActivitiesId")
+                    b.Property<int>("ActividadesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("InstructorsId")
+                    b.Property<int>("ListaInstructoresId")
                         .HasColumnType("int");
 
-                    b.HasKey("ActivitiesId", "InstructorsId");
+                    b.HasKey("ActividadesId", "ListaInstructoresId");
 
-                    b.HasIndex("InstructorsId");
+                    b.HasIndex("ListaInstructoresId");
 
                     b.ToTable("ActivityInstructor");
                 });
@@ -76,7 +76,7 @@ namespace _4VGymEF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberMonitors")
+                    b.Property<int>("NumberInstructors")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -110,36 +110,36 @@ namespace _4VGymEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Intructors");
+                    b.ToTable("Instructors");
                 });
 
             modelBuilder.Entity("ActivityInstructor", b =>
                 {
                     b.HasOne("_4VGymEF.Models.Activity", null)
                         .WithMany()
-                        .HasForeignKey("ActivitiesId")
+                        .HasForeignKey("ActividadesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("_4VGymEF.Models.Instructor", null)
                         .WithMany()
-                        .HasForeignKey("InstructorsId")
+                        .HasForeignKey("ListaInstructoresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("_4VGymEF.Models.Activity", b =>
                 {
-                    b.HasOne("_4VGymEF.Models.ActivityType", "ActivityType")
-                        .WithMany("Activities")
+                    b.HasOne("_4VGymEF.Models.ActivityType", "TipoActividad")
+                        .WithMany("listaAtividades")
                         .HasForeignKey("ActivityTypeId");
 
-                    b.Navigation("ActivityType");
+                    b.Navigation("TipoActividad");
                 });
 
             modelBuilder.Entity("_4VGymEF.Models.ActivityType", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("listaAtividades");
                 });
 #pragma warning restore 612, 618
         }

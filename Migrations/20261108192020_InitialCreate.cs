@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _4VGymEF.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate7 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace _4VGymEF.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NumberMonitors = table.Column<int>(type: "int", nullable: false)
+                    NumberInstructors = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +26,7 @@ namespace _4VGymEF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Intructors",
+                name: "Instructors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -38,7 +38,7 @@ namespace _4VGymEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Intructors", x => x.Id);
+                    table.PrimaryKey("PK_Instructors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,10 +47,10 @@ namespace _4VGymEF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ActivityTypeId = table.Column<int>(type: "int", nullable: true),
                     MaxParticipants = table.Column<int>(type: "int", nullable: false),
                     DateStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActivityTypeId = table.Column<int>(type: "int", nullable: true)
+                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,22 +66,22 @@ namespace _4VGymEF.Migrations
                 name: "ActivityInstructor",
                 columns: table => new
                 {
-                    ActivitiesId = table.Column<int>(type: "int", nullable: false),
-                    InstructorsId = table.Column<int>(type: "int", nullable: false)
+                    ActividadesId = table.Column<int>(type: "int", nullable: false),
+                    ListaInstructoresId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityInstructor", x => new { x.ActivitiesId, x.InstructorsId });
+                    table.PrimaryKey("PK_ActivityInstructor", x => new { x.ActividadesId, x.ListaInstructoresId });
                     table.ForeignKey(
-                        name: "FK_ActivityInstructor_Activities_ActivitiesId",
-                        column: x => x.ActivitiesId,
+                        name: "FK_ActivityInstructor_Activities_ActividadesId",
+                        column: x => x.ActividadesId,
                         principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityInstructor_Intructors_InstructorsId",
-                        column: x => x.InstructorsId,
-                        principalTable: "Intructors",
+                        name: "FK_ActivityInstructor_Instructors_ListaInstructoresId",
+                        column: x => x.ListaInstructoresId,
+                        principalTable: "Instructors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -92,9 +92,9 @@ namespace _4VGymEF.Migrations
                 column: "ActivityTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityInstructor_InstructorsId",
+                name: "IX_ActivityInstructor_ListaInstructoresId",
                 table: "ActivityInstructor",
-                column: "InstructorsId");
+                column: "ListaInstructoresId");
         }
 
         /// <inheritdoc />
@@ -107,7 +107,7 @@ namespace _4VGymEF.Migrations
                 name: "Activities");
 
             migrationBuilder.DropTable(
-                name: "Intructors");
+                name: "Instructors");
 
             migrationBuilder.DropTable(
                 name: "ActivityTypes");
